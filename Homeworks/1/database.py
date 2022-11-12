@@ -1,22 +1,29 @@
 import mysql.connector
 
-# Data start:
-HOST = "mysql-2a3e420a-hastii-2c07.aivencloud.com"
-PORT = 17752
-USER = "avnadmin"
-PASSWORD = "AVNS_FLhMskMwQEoaul2OOjz"
-DATABASE = "defaultdb"
+'''
+    State Maper:
+        0: in-progress
+        1: denied
+        2: validated
+'''
+
+# # Data start:
+# HOST = "mysql-2a3e420a-hastii-2c07.aivencloud.com"
+# PORT = 17752
+# USER = "avnadmin"
+# PASSWORD = "AVNS_FLhMskMwQEoaul2OOjz"
+# DATABASE = "defaultdb"
 
 
-create_table_query = '''CREATE TABLE Advertisement (
-    Id INT AUTO_INCREMENT PRIMARY KEY,
-    Description VARCHAR(250),
-    Email VARCHAR(30) NOT NULL,
-    State INT NOT NULL,
-    Category VARCHAR(128),
-    UPDATE_DATE timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp
-    )'''
-# End
+# create_table_query = '''CREATE TABLE Advertisement (
+#     Id INT AUTO_INCREMENT PRIMARY KEY,
+#     Description VARCHAR(250),
+#     Email VARCHAR(30) NOT NULL,
+#     State INT NOT NULL,
+#     Category VARCHAR(128),
+#     UPDATE_DATE timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE current_timestamp
+#     )'''
+# # End
 
 ''' 
     This class is used to connect to the database and execute queries.
@@ -79,7 +86,7 @@ class Database():
             print(x)
 
 
-db = Database(HOST, PORT, USER, PASSWORD, DATABASE)
-# db.select_tables()
-# db.creat_table(create_table_query)
-db.select_rows('Advertisement')
+# db = Database(HOST, PORT, USER, PASSWORD, DATABASE)
+# # db.select_tables()
+# # db.creat_table(create_table_query)
+# db.select_rows('Advertisement')
