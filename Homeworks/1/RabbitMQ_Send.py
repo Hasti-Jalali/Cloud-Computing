@@ -3,6 +3,7 @@ import pika
 
 # Create a connection to the RabbitMQ server
 class rabbitMQ_send():
+    '''Send a message to the RabbitMQ server.'''
     def __init__(self):
         self.AMQP_URL = "amqps://wqzfdbgv:H0k0rWOPf6vTBaFCgJ35vZgWn657nAQZ@albatross.rmq.cloudamqp.com/wqzfdbgv"
         self.ROUTING_KEY = 'hello'
