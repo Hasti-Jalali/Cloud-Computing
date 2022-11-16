@@ -18,6 +18,7 @@ class RabbitMQ_Receive():
         
 
     def receive(self):
+        '''Receive a message from the RabbitMQ server.'''
         self.channel.queue_declare(queue=self.queue)
 
         def callback(ch, method, properties, body):
@@ -32,16 +33,16 @@ class RabbitMQ_Receive():
                 state = 2
                 db.update_data(id=id, state=state, category=tag)
                 email = db.get_email(id)
-                text = ' تبلیغ شما تایید شد'
-                subject = 'تایید تبلیغ'
+                text = 'Your Advertisement is approved'
+                subject = 'Approve Advertisment'
                 Email.SendEmail().send_message(email, text, subject)
 
             if is_vehicle is False:
                 state = 1
                 db.update_data(id=id, state=state, category=tag)
                 email = db.get_email(id)
-                text = 'تبلیغ شما تایید نشد'
-                subject = 'رد تبلیغ'
+                text = 'Your Advertisement is rejected'
+                subject = 'Reject Advertisment'
                 Email.SendEmail().send_message(email, text, subject)
             
             print('Email Sent!')
