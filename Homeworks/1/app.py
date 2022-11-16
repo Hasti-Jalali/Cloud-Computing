@@ -38,7 +38,8 @@ def addPost():
     os.remove(file_path) 
     RabbitMQ_Send.rabbitMQ_send().send_message(f"{id}{file_extension}")
 
-    return f'لطفا کد پیگیری خود را به خاطر بسپارید: {id}'
+    return f'Pleas remember your id: {id} for tracking your advertisement'
+
 
 @app.route('/postTracking/', methods=['POST'])
 def postTracking():
@@ -56,18 +57,16 @@ def postTracking():
     row[6] = extention
     '''
     if row[3] == 0:
-        return f'آگهی شما با آیدی {id} در صف بررسی است.'
+        return f'Your Advertisement with id: {id} is pending'
 
     if row[3] == 1:
-        return f'آگهی شما با آیدی {id} رد شده است.'
+        return f'Your Advertisement with id: {id} is rejected'
     
     elif row[3] == 2:
-        result = f"توضیحات: {row[1]}\n"
-        result += f"دسته‌بندی {row[4]}\n"
-        result += f"وضعیت {row[3]}\n"
+        result = f"description: {row[1]}\n"
+        result += f"category: {row[4]}\n"
+        result += f"state: Your Advertisement with id: {id} is approved\n"
         extention = row[6]
-        file_name = Obj.S3().download_file(object_name=id, extention=extention)
-        img = open(file_name, 'rb')
-        # return make_response(result, img)
-        return send_file(img, mimetype='image/jpeg'), result
-
+        url = Obj.S3().get_url(f'{id}{extention}')
+        result += f"url: {url}\n"
+        return result
