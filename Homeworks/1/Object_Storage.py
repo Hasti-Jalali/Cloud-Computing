@@ -5,6 +5,7 @@ import os
 
 
 class S3:
+    '''S3 Object Storage'''
 
     def __init__(self):
         self.bucket = 'cloud-computing'
@@ -39,10 +40,27 @@ class S3:
         return True
 
     def download_file(self, object_name, extention):
+        '''Download a file from an S3 bucket'''
         s3_client = self.s3_client
         file_name = f'./Image Cache/{object_name}{extention}'
         s3_client.download_file(self.bucket, f'{object_name}{extention}', file_name)
         return file_name
+    
+    def get_url(self, object_name):
+        '''Generate a presigned URL to share an S3 object'''
+        s3_client = self.s3_client
+        try:
+            response = s3_client.generate_presigned_url('get_object',
+                                                        Params={'Bucket': self.bucket,
+                                                                'Key': object_name},
+                                                        ExpiresIn=7200)
+        except ClientError as e:
+            logging.error(e)
+            return None
+        
+        # The response contains the presigned URL
+        return response
+
 
 
 # upload_file(file_name='1.jpg', bucket=bucket)
