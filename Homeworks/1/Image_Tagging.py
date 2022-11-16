@@ -6,6 +6,7 @@ class ImageTagging():
         self.API_SECRET = 'b117d89284326d807458a878ceaa29e7'
 
     def get_tags(self, image_path):
+        '''Get tags for an image using Imagga's API.'''
         response = requests.post(
             'https://api.imagga.com/v2/tags',
             auth=(self.API_KEY, self.API_SECRET),
