@@ -7,6 +7,7 @@ class SendEmail():
         self.API_KEY = "e8f00bed28567c185c4a79f1c54f0d99-48c092ba-2aa2328c"
 
     def send_message(self, email, subject, text):
+        '''Send an email using Mailgun's API.'''
         return requests.post(
             f"https://api.mailgun.net/v3/{self.DOMAIN}/messages",
             auth=("api", self.API_KEY),

@@ -42,11 +42,13 @@ class Database():
     
 
     def creat_table(self, query):
+        '''Create a table in the database.'''
         mycursor = self.mydb.cursor()
         mycursor.execute(query)
         self.mydb.commit()
     
     def insert_data(self, email, description, extention):
+        '''Insert data into the database.'''
         mycursor = self.mydb.cursor()
         sql = "INSERT INTO Advertisement (Description, Email, Extention, State) VALUES (%s, %s, %s, 0)"
         val = (description, email, extention)
@@ -58,6 +60,7 @@ class Database():
         return mycursor.lastrowid
     
     def update_data(self, id, state, category=''):
+        '''Update data in the database.'''
         mycursor = self.mydb.cursor()
         sql = f"UPDATE Advertisement SET State = {state}, Category = '{category}' WHERE Id = {id}"
         mycursor.execute(sql)
@@ -67,6 +70,7 @@ class Database():
         print(mycursor.rowcount, "record(s) affected")
 
     def select_tables(self):
+        '''Select all tables in the database.'''
         mycursor = self.mydb.cursor()
         mycursor.execute("SHOW TABLES")
 
@@ -74,6 +78,7 @@ class Database():
             print(x)
     
     def select_by_id(self, id):
+        '''Select a row by id.'''
         mycursor = self.mydb.cursor()
         mycursor.execute(f"SELECT * FROM Advertisement WHERE ID={id}")
 
@@ -85,16 +90,21 @@ class Database():
         return myresult
 
     def alter_table(self):
+        '''Alter table to add extention column.'''
         mycursor = self.mydb.cursor()
         mycursor.execute(f"ALTER TABLE Advertisement ADD extention varchar(10)")
         self.mydb.commit()
     
+
     def delete_row(self, id):
+        '''Delete a row by id.'''
         mycursor = self.mydb.cursor()
         mycursor.execute(f"DELETE FROM Advertisement WHERE Id = {id}")
         self.mydb.commit()
 
+
     def get_email(self, id):
+        '''Get email by id.'''
         mycursor = self.mydb.cursor()
         mycursor.execute(f"SELECT Email FROM Advertisement WHERE Id = {id}")
 
