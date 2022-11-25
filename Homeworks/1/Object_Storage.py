@@ -46,7 +46,12 @@ class S3:
         s3_client.download_file(self.bucket, f'{object_name}{extention}', file_name)
         return file_name
     
-    def get_url(self, object_name):
+
+    '''
+        get_url is used to get the url of the image in the bucket 
+        object_name is the name of the file in the bucket
+    '''
+    def get_url(self, object_name): 
         '''Generate a presigned URL to share an S3 object'''
         s3_client = self.s3_client
         try:

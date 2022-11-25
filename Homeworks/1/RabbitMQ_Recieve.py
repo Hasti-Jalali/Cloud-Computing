@@ -3,10 +3,9 @@ import sys
 import os
 import Object_Storage as Obj
 import Image_Tagging as Tag
-import Database
+import database
 import Email
 
-db = Database.Database()
 
 class RabbitMQ_Receive():
     def __init__(self):
@@ -15,6 +14,8 @@ class RabbitMQ_Receive():
             pika.URLParameters(self.AMQP_URL))
         self.channel = self.connection.channel()
         self.queue = 'hello'
+        print('start')
+        self.db = database.Database()
         
 
     def receive(self):
@@ -29,21 +30,22 @@ class RabbitMQ_Receive():
             file_name = body
             file_name = Obj.S3().download_file(id, extention)
             tag, is_vehicle = Tag.ImageTagging().get_tags(file_name)
+            os.remove(file_name)
             if is_vehicle:
                 state = 2
-                db.update_data(id=id, state=state, category=tag)
-                email = db.get_email(id)
-                text = 'Your Advertisement is approved'
+                self.db.update_data(id=id, state=state, category=tag)
+                email = self.db.get_email(id)
+                text = f'Your Advertisement with id: {id} is approved and your category is {tag}'
                 subject = 'Approve Advertisment'
-                Email.SendEmail().send_message(email, text, subject)
+                Email.SendEmail().send_message(email, subject, text)
 
             if is_vehicle is False:
                 state = 1
-                db.update_data(id=id, state=state, category=tag)
-                email = db.get_email(id)
-                text = 'Your Advertisement is rejected'
+                self.db.update_data(id=id, state=state, category=tag)
+                email = self.db.get_email(id)
+                text = f'Your Advertisement with id: {id} is rejected because it is not a vehicle'
                 subject = 'Reject Advertisment'
-                Email.SendEmail().send_message(email, text, subject)
+                Email.SendEmail().send_message(email, subject, text)
             
             print('Email Sent!')
 
@@ -56,4 +58,4 @@ class RabbitMQ_Receive():
 
 
 
-print(RabbitMQ_Receive().receive())
+RabbitMQ_Receive().receive()

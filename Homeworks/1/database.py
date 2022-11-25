@@ -120,4 +120,4 @@ class Database():
 # for id in range(1, 6):
 #     Database().delete_row(id)
 
-# Database().select_by_id(6)
+# Database().select_by_id(27)

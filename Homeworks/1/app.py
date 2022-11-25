@@ -1,7 +1,7 @@
 from flask import Flask, request, send_file
 import json
 from flask_cors import CORS, cross_origin
-import Database
+import database
 import Object_Storage as Obj
 import os
 import RabbitMQ_Send
@@ -9,9 +9,6 @@ import RabbitMQ_Send
 app = Flask(__name__)
 # app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-
-db = Database.Database()
 
 # cors = CORS(app, resources={r'/api/*': {"origins": "*"}})
 
@@ -25,7 +22,7 @@ def index():
 
 @app.route('/addPost/', methods=['POST'])
 def addPost():
-
+    db = database.Database()
     email = request.form.get("email")
     description = request.form.get("description")
     image = request.files['image']
@@ -43,7 +40,7 @@ def addPost():
 
 @app.route('/postTracking/', methods=['POST'])
 def postTracking():
-
+    db = database.Database()
     id = request.form.get("id")
 
     row = db.select_by_id(id)[0]
