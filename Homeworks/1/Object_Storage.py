@@ -16,7 +16,8 @@ class S3:
             aws_secret_access_key = '72e62119eaf43dfeb321871d413f9646f39e35f1')
 
     def upload_file(self, file_name, object_name=None):
-        """Upload a file to an S3 bucket
+        """
+        Upload a file to an S3 bucket
 
         :param file_name: File to upload
         :param bucket: Bucket to upload to

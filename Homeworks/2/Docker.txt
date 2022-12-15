@@ -1,0 +1,53 @@
+#Docker
+
+# pull image
+docker pull <image-name>
+
+# run image
+sudo docker run <image-name>
+
+# list all images
+docker images
+
+# list all containers
+docker ps -a
+
+# remove container
+docker rm <container-id>
+
+# remove image
+docker rmi <image-id>
+
+# remove all containers
+docker rm $(docker ps -a -q)
+
+# remove all images
+docker rmi $(docker images -q)
+
+# remove all containers and images
+docker system prune -a
+
+# remove all stopped containers
+docker rm $(docker ps -a -q)
+
+# remove all untagged images
+docker rmi $(docker images -q -f dangling=true)
+
+# execute command in container
+docker exec -it <container-id> <command>
+
+# copy file from container to host
+docker cp <container-id>:<path-to-file> <path-to-file>
+
+# copy file from host to container
+docker cp <path-to-file> <container-id>:<path-to-file>
+
+# bind port
+docker run -p <host-port>:<container-port> <image-name>
+
+# bind volume
+docker run -v <host-path>:<container-path> <image-name>
+
+# bash into container
+docker exec -it <container-id> bash
+
