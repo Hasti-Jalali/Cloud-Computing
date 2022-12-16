@@ -16,7 +16,7 @@ def get_coin_price():
     # If the coin price is not in the cache, get it from the API
     if coin_price is None:
         coin_price = requests.get(f'https://api.coingecko.com/api/v3/simple/price?ids={coin}&vs_currencies=usd').json()[coin]['usd']
-        redis_db.set(coin, coin_price)
+        redis_db.set(coin, coin_price, ex=300)
 
     # Return the coin price
     return redis_db.get(coin)
