@@ -19,5 +19,7 @@ def get_coin_price():
         redis_db.set(coin, coin_price)
 
     # Return the coin price
-    return coin_price
+    return redis_db.get(coin)
 
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)
