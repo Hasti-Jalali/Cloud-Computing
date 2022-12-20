@@ -1,4 +1,4 @@
-From tiangolo/uwsgi-nginx-flask
+FROM tiangolo/uwsgi-nginx-flask
 
 COPY ./requirements.txt /tmp/
 RUN pip install -r /tmp/requirements.txt
