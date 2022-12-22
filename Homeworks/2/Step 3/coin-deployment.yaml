@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+  labels:
+    app: flask-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-deployment
+  template:
+    metadata:
+      labels:
+        app: flask-deployment
+    spec:
+      containers:
+      - name: coin-app
+        image: hastijalali/myapp:v3
+        ports:
+        - containerPort: 80
+        env:
+          - name: CACHE_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: coin-config
+                key: CACHE_PORT
+          - name: COIN_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: coin-config
+                key: COIN_NAME
+          - name: remote_host
+            valueFrom:
+              configMapKeyRef:
+                name: coin-config
+                key: remote_host
+          - name: CACHE_EXPIRATION_TIME
+            valueFrom:
+              configMapKeyRef:
+                name: coin-config
+                key: CACHE_EXPIRATION_TIME

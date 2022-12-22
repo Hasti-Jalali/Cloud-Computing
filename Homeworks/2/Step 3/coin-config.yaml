@@ -1,0 +1,9 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: coin-config
+data:
+    CACHE_PORT: "80"
+    remote_host: "https://api.coingecko.com/api/v3/simple/vs_currencies=usd&price?ids="
+    COIN_NAME: "bitcoin"
+    CACHE_EXPIRATION_TIME: "300"
