@@ -3,8 +3,8 @@ import requests
 
 class SendEmail():
     def __init__(self):
-        self.DOMAIN = "sandboxf826f427e71541e8b26ef39e34e74055.mailgun.org"
-        self.API_KEY = "76fa836da8d0fa323b075f872a9e36a1-69210cfc-a1dec9c0"
+        self.DOMAIN = "<YOUE-DOMAIN>"
+        self.API_KEY = "<YOUR-API-KEY>"
 
     def send_message(self, email, subject, text):
         '''Send an email using Mailgun's API.'''
